@@ -11,17 +11,27 @@ options.UseSqlServer(connectionString));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
+
+if (!app.Environment.IsEnvironment("Testing"))
+{
+using (var scope = app.Services.CreateScope())
+{
+var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+db.Database.EnsureCreated();
+}
+}
+
 // Swagger activé pour tester l'API localement et dans le conteneur
 app.UseSwagger();
 app.UseSwaggerUI();
 // Auto-création de la base de données au démarrage
-using (var scope = app.Services.CreateScope())
-{
-var db =
-scope.ServiceProvider.GetRequiredService<AppDbContext>();
-// Attend que la base soit disponible et crée le schéma
-db.Database.EnsureCreated();
-}
+// using (var scope = app.Services.CreateScope())
+// {
+// var db =
+// scope.ServiceProvider.GetRequiredService<AppDbContext>();
+// // Attend que la base soit disponible et crée le schéma
+// db.Database.EnsureCreated();
+// }
 // 1. Endpoint d'observabilité / Healthcheck applicatif (Measurement- CALMS)
 app.MapGet("/health", () => Results.Ok(new { status = "Healthy",
 timestamp = DateTime.UtcNow }))
@@ -54,3 +64,5 @@ return Results.Ok(product);
 })
 .WithName("GetProductById");
 app.Run();
+
+public partial class Program { }
