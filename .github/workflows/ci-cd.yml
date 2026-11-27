@@ -73,16 +73,16 @@ jobs:
           dotnet-version: '9.0.x'  
 
       - name: Restore dependencies
-        run: dotnet restore tests/ProductCatalog.Tests/ProductCatalog.Tests.csproj
+        run: dotnet restore test/ProductCatalog.Tests/ProductCatalog.Tests.csproj
 
       - name: Build tests
-        run: dotnet build tests/ProductCatalog.Tests/ProductCatalog.Tests.csproj --configuration Release --no-restore
+        run: dotnet build test/ProductCatalog.Tests/ProductCatalog.Tests.csproj --configuration Release --no-restore
 
       - name: Run Integration Tests
         env:
           ConnectionStrings__CatalogDbConnection: "Server=localhost,1433;Database=CatalogDB_Test;User Id=sa;Password=Password123!;TrustServerCertificate=True;MultipleActiveResultSets=true"
         run: >
-          dotnet test tests/ProductCatalog.Tests/ProductCatalog.Tests.csproj
+          dotnet test test/ProductCatalog.Tests/ProductCatalog.Tests.csproj
           --no-build
           --configuration Release
           --logger "console;verbosity=detailed"
