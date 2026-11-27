@@ -40,3 +40,4 @@ jobs:
           dotnet test test/ProductCatalog.Tests/ProductCatalog.Tests.csproj
           --filter "FullyQualifiedName~ProductUnitTests"
           --configuration Release
+          --logger "console;verbosity=detailed"
