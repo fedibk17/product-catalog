@@ -37,6 +37,6 @@ jobs:
       # 5. Exécution des tests unitaires
       - name: Run Unit Tests
         run: >
-          dotnet test tests/ProductCatalog.Tests/ProductCatalog.Tests.csproj
+          dotnet test test/ProductCatalog.Tests/ProductCatalog.Tests.csproj
           --filter "FullyQualifiedName~ProductUnitTests"
           --configuration Release
