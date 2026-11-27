@@ -41,6 +41,8 @@ jobs:
           --filter "FullyQualifiedName~ProductUnitTests"
           --configuration Release
           --logger "console;verbosity=detailed"
+          --logger "trx;LogFileName=UnitResults.trx"
+          --results-directory ./TestResults/UnitTests
   # ==========================================================
   # JOB 2 : Tests d'Intégration avec Service SQL Server
   # ==========================================================
@@ -86,3 +88,5 @@ jobs:
           --no-build
           --configuration Release
           --logger "console;verbosity=detailed"
+          --logger "trx;LogFileName=IntegrationResults.trx"
+          --results-directory ./TestResults/IntegrationTests
